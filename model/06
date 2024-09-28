@@ -11,8 +11,8 @@ import retrying
 forecast_price = {}
 
 binance_data_path = os.path.join(data_base_path, "binance/futures-klines")
-MAX_DATA_SIZE = 1000  # Giới hạn số lượng dữ liệu tối đa khi lưu trữ
-INITIAL_FETCH_SIZE = 1000  # Số lượng nến lần đầu tải về
+MAX_DATA_SIZE = 1000  # Maximum number of data points to store
+INITIAL_FETCH_SIZE = 1000  # Initial candles to fetch
 
 @retrying.retry(wait_exponential_multiplier=1000, wait_exponential_max=10000, stop_max_attempt_number=5)
 def fetch_prices(symbol, interval="1m", limit=1000, start_time=None, end_time=None):
@@ -123,11 +123,23 @@ def train_model(token):
     next_time_index = np.array([[len(df)]])
     predicted_price = model.predict(next_time_index)[0]
 
-    fluctuation_range = 0.01 * predicted_price
+    # Apply fluctuation based on specified cases
+    current_time = datetime.now()
+    current_hour = current_time.hour
+    current_weekday = current_time.weekday()
+
+    if 19 <= current_hour or current_hour < 7:  # From 19:00 to 07:00 (GMT+7)
+        if current_weekday == 5 or current_weekday == 6:  # Saturday and Sunday
+            fluctuation_range = 0.0015 * predicted_price  # ±0.15%
+        else:  # Monday to Friday
+            fluctuation_range = 0.003 * predicted_price  # ±0.3%
+    else:
+        fluctuation_range = 0.0005 * predicted_price  # ±0.05%
+
     min_price = predicted_price - fluctuation_range
     max_price = predicted_price + fluctuation_range
-
     price_predict = random.uniform(min_price, max_price)
+
     forecast_price[token] = price_predict
 
     print(f"Forecasted price for {token}: {forecast_price[token]}")
