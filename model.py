@@ -133,12 +133,5 @@ def train_model(token):
     time_end = datetime.now()
     print(f"Time elapsed forecast: {time_end - time_start}")
 
-def update_data():
-    tokens = ["ETH", "BTC", "BNB", "SOL", "ARB"]
-    for token in tokens:
-        download_data(token)
-        format_data(token)
-        train_model(token)
-
-if __name__ == "__main__":
-    update_data()
+# Đảm bảo các hàm và biến cần thiết được xuất ra
+__all__ = ['download_data', 'format_data', 'train_model', 'forecast_price']
