@@ -11,8 +11,8 @@ import retrying
 forecast_price = {}
 
 binance_data_path = os.path.join(data_base_path, "binance/futures-klines")
-MAX_DATA_SIZE = 1000  # Giới hạn số lượng dữ liệu tối đa khi lưu trữ
-INITIAL_FETCH_SIZE = 1000  # Số lượng nến lần đầu tải về
+MAX_DATA_SIZE = 1000  # Maximum data size limit for storage
+INITIAL_FETCH_SIZE = 1000  # Initial number of candles to fetch
 
 @retrying.retry(wait_exponential_multiplier=1000, wait_exponential_max=10000, stop_max_attempt_number=5)
 def fetch_prices(symbol, interval="1m", limit=1000, start_time=None, end_time=None):
@@ -123,13 +123,14 @@ def train_model(token):
     next_time_index = np.array([[len(df)]])
     predicted_price = model.predict(next_time_index)[0]
 
-    # Thêm biên độ ngẫu nhiên từ 0% đến 0.3%
-    random_fluctuation = random.uniform(0, 0.003)  # Biên độ ngẫu nhiên từ 0% đến 0.3%
-    adjusted_price = predicted_price * (1 + random_fluctuation)
+    # Adding a random fluctuation between 0% and 0.3% to the predicted price
+    fluctuation_percentage = random.uniform(0, 0.003)  # 0.3% = 0.003 in decimal
+    fluctuation_amount = predicted_price * fluctuation_percentage
+    price_predict = predicted_price + fluctuation_amount
 
-    forecast_price[token] = adjusted_price
+    forecast_price[token] = price_predict
 
-    print(f"Forecasted price for {token}: {forecast_price[token]}")
+    print(f"Forecasted price for {token} with fluctuation: {forecast_price[token]}")
     time_end = datetime.now()
     print(f"Time elapsed forecast: {time_end - time_start}")
 
