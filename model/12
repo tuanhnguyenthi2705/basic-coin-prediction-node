@@ -123,15 +123,22 @@ def train_model(token):
     next_time_index = np.array([[len(df)]])
     predicted_price = model.predict(next_time_index)[0]
 
-    # Thêm biên độ ngẫu nhiên từ 0% đến 0,3%
-    fluctuation_percentage = random.uniform(0, 0.003)  # Biên độ ngẫu nhiên từ 0% đến 0,3%
-    price_predict = predicted_price * (1 + fluctuation_percentage)
+    # Thêm biên độ ngẫu nhiên từ 0% đến 0.3%
+    random_fluctuation = random.uniform(0, 0.003)  # Biên độ ngẫu nhiên từ 0% đến 0.3%
+    adjusted_price = predicted_price * (1 + random_fluctuation)
 
-    forecast_price[token] = price_predict
+    forecast_price[token] = adjusted_price
 
     print(f"Forecasted price for {token}: {forecast_price[token]}")
     time_end = datetime.now()
     print(f"Time elapsed forecast: {time_end - time_start}")
 
-# Đảm bảo các hàm và biến cần thiết được xuất ra
-__all__ = ['download_data', 'format_data', 'train_model', 'forecast_price']
+def update_data():
+    tokens = ["ETH", "BTC", "BNB", "SOL", "ARB"]
+    for token in tokens:
+        download_data(token)
+        format_data(token)
+        train_model(token)
+
+if __name__ == "__main__":
+    update_data()
