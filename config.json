@@ -3,11 +3,11 @@
         "addressKeyName": "test",
         "addressRestoreMnemonic": "$ALLORA_SEED_PHRASE",
         "alloraHomeDir": "",
-        "gas": 11,
+        "gas": "auto",
         "gasAdjustment": 2,
-        "gasPrices": "auto",
-        "maxFees": 2500000,
-        "nodeRpc": "https://allora-rpc.testnet.allora.network",
+        "gasPrices": 10,
+        "maxFees": 25000000,
+        "nodeRpc": "https://allora-rpc.testnet.allora.network/",
         "maxRetries": 5,
         "retryDelay": 3,
         "accountSequenceRetryDelay": 5,
@@ -18,7 +18,7 @@
     "worker": [
         {
             "topicId": 1,
-            "inferenceEntrypointName": "apiAdapter",
+            "inferenceEntrypointName": "api-worker-reputer",
             "loopSeconds": 60,
             "parameters": {
                 "InferenceEndpoint": "http://inference:8011/inference/{Token}",
@@ -27,7 +27,7 @@
         },
         {
             "topicId": 3,
-            "inferenceEntrypointName": "apiAdapter",
+            "inferenceEntrypointName": "api-worker-reputer",
             "loopSeconds": 60,
             "parameters": {
                 "InferenceEndpoint": "http://inference:8011/inference/{Token}",
@@ -36,7 +36,7 @@
         },
         {
             "topicId": 5,
-            "inferenceEntrypointName": "apiAdapter",
+            "inferenceEntrypointName": "api-worker-reputer",
             "loopSeconds": 60,
             "parameters": {
                 "InferenceEndpoint": "http://inference:8011/inference/{Token}",
@@ -45,7 +45,7 @@
         },
         {
             "topicId": 7,
-            "inferenceEntrypointName": "apiAdapter",
+            "inferenceEntrypointName": "api-worker-reputer",
             "loopSeconds": 60,
             "parameters": {
                 "InferenceEndpoint": "http://inference:8011/inference/{Token}",
@@ -54,7 +54,7 @@
         },
         {
             "topicId": 8,
-            "inferenceEntrypointName": "apiAdapter",
+            "inferenceEntrypointName": "api-worker-reputer",
             "loopSeconds": 60,
             "parameters": {
                 "InferenceEndpoint": "http://inference:8011/inference/{Token}",
@@ -63,7 +63,7 @@
         },
         {
             "topicId": 9,
-            "inferenceEntrypointName": "apiAdapter",
+            "inferenceEntrypointName": "api-worker-reputer",
             "loopSeconds": 60,
             "parameters": {
                 "InferenceEndpoint": "http://inference:8011/inference/{Token}",
