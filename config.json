@@ -5,7 +5,7 @@
         "alloraHomeDir": "",
         "gas": "auto",
         "gasAdjustment": 1.2,
-        "gasPrices": auto,
+        "gasPrices": "auto",
         "gasPriceUpdateInterval": 60,
         "maxFees": 500000,
         "nodeRpc": "https://allora-rpc.testnet.allora.network",
