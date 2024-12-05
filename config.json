@@ -6,7 +6,6 @@
         "gas": 11,
         "gasAdjustment": 2,
         "gasPrices": "auto",
-        "gasPriceUpdateInterval": 60,
         "maxFees": 2500000,
         "nodeRpc": "https://allora-rpc.testnet.allora.network",
         "maxRetries": 5,
