@@ -3,7 +3,7 @@
         "addressKeyName": "test",
         "addressRestoreMnemonic": "$ALLORA_SEED_PHRASE",
         "alloraHomeDir": "",
-        "gas": "auto",
+        "gas": 11,
         "gasAdjustment": 2,
         "gasPrices": "auto",
         "gasPriceUpdateInterval": 60,
